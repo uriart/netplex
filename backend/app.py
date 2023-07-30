@@ -2,6 +2,7 @@ import uvicorn
 
 from fastapi import FastAPI, Depends
 from starlette.middleware.cors import CORSMiddleware
+from smbsrv import router as samba_router
 
 from supertokens_python import init, get_all_cors_headers
 from supertokens_python.framework.fastapi import get_middleware
@@ -20,6 +21,7 @@ init(
 
 
 app = FastAPI(title="SuperTokens example")
+app.include_router(samba_router)
 app.add_middleware(get_middleware())
 
 @app.get("/sessioninfo")    
