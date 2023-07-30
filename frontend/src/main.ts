@@ -4,6 +4,8 @@ import router from "./router";
 import SuperTokens from "supertokens-auth-react";
 import "./assets/main.css";
 import { SuperTokensConfig } from "./config";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 SuperTokens.init(SuperTokensConfig);
 
