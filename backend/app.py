@@ -19,7 +19,6 @@ init(
     mode="asgi",
 )
 
-
 app = FastAPI(title="SuperTokens example")
 app.include_router(samba_router)
 app.add_middleware(get_middleware())
@@ -31,7 +30,6 @@ async def secure_api(s: SessionContainer = Depends(verify_session())):
         "userId": s.get_user_id(),
         "accessTokenPayload": s.get_access_token_payload(),
     }
-
 
 app = CORSMiddleware(
     app=app,
