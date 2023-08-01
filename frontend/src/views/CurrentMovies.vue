@@ -8,7 +8,7 @@
             <img :src="movie.image" class="card-img-top" :alt="movie.name">
             <div class="card-body">
               <h5 class="card-title">{{ movie.name }}</h5>
-              <button @click="delete_movie(movie.name)" class="btn btn-danger">Eliminar</button>
+              <button @click="tmp_movie=movie.name" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button>
             </div>
           </div>
         </div>
@@ -16,24 +16,21 @@
       </div>
     </div>
   </div>
-  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Launch demo modal
-  </button>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          Se va a eliminar la película <b>{{ tmp_movie }}</b>. ¿Desea continuar?
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button @click="delete_movie(tmp_movie)" type="button" data-bs-dismiss="modal" class="btn btn-primary">Aceptar</button>
         </div>
       </div>
     </div>
@@ -41,7 +38,7 @@
 </template>
   
   <script lang="ts">
-  import { defineComponent, reactive, onMounted } from 'vue'
+  import { defineComponent, reactive, onMounted, ref } from 'vue'
   import axios from 'axios';
   
   export default defineComponent({
@@ -51,6 +48,7 @@
       const imdb_uri = 'https://imdb-api.projects.thetuhin.com'
       const backend_python = 'http://localhost:3001'
       const movies_data = reactive<{ name: string; image: string; description: string }[]>([]);
+      const tmp_movie = ref('')
 
       onMounted(getMoviesTitles);
 
@@ -102,6 +100,7 @@
         movies_data,
         loading,
         delete_movie,
+        tmp_movie,
       }
     }
   })
